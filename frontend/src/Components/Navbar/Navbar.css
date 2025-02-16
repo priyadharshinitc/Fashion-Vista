@@ -15,7 +15,12 @@
     background: #FF4141;
 }
 
-.nav-cart-count {
-    margin-top: -35px;
-    margin-left: -55px;
+@media (max-width: 768px) {
+    .nav-menu-visible {
+        display: flex;
+    }
+
+    .nav-dropdown.open {
+        transform: rotate(45deg);
+    }
 }
