@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import star_icon from '../Assets/star_icon.png'
 import star_dull_icon from '../Assets/star_dull_icon.png'
+import { ShopContext } from '../../Context/ShopContext'
 
 const ProductDisplay = (props) => {
     const {product} = props
+    const {addToCart} = useContext(ShopContext)
   return (
     <div className='productdisplay flex my-0 mx-[170px] mb-10'>
         <div className="productdisplay-left flex gap-4">
@@ -42,7 +44,7 @@ const ProductDisplay = (props) => {
                     <div className='py-4 px-6 bg-[#FBFBFB] border border-[#EBEBEB] rounded-sm cursor-pointer'>XXL</div>
                 </div>
             </div>
-            <button className='py-4 px-8 w-[200px] text-base font-semibold text-white bg-[#FF4141] mb-10 border-none outline-none cursor-pointer'>ADD TO CART</button>
+            <button type="button" onClick={() => {addToCart(product.id)}} className='py-4 px-8 w-[200px] text-base font-semibold text-white bg-[#FF4141] mb-10 border-none outline-none cursor-pointer'>ADD TO CART</button>
             <p className='productdisplay-right-category mt-2'><span className='font-semibold'>Category: </span>Women, T-Shirt, Crop Top</p>
             <p className='productdisplay-right-category mt-2'><span className='font-semibold'>Tags: </span>Modern, Latest</p>
         </div>
