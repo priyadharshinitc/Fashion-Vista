@@ -4,7 +4,7 @@ import exclusive_image from "../Assets/exclusive_image.png";
 const Offers = () => {
   return (
     <div
-      className="offers w-[65%] h-[60vh] flex m-auto my-10 py-0 px-[50px] mb-[150px] bg-linear-[180deg,#FDE1FF_0%,#E1FFEA22_60%] max-xl:py-0 max-xl:px-20 max-xl:mb-[120px] max-lg:px-14 max-lg:mb-[80px] max-lg:h-[40vh] max-md:mb-[60px] max-sm:h-[25vh] max-sm:mb-[50px] max-sm:mt-[50px]"
+      className="offers w-[65%] h-[60vh] flex m-auto my-10 py-0 px-[50px] mb-[50px] bg-linear-[180deg,#FDE1FF_0%,#E1FFEA22_60%] max-xl:py-0 max-xl:px-20 max-xl:mb-[120px] max-lg:px-14 max-lg:mb-[80px] max-lg:h-[40vh] max-md:mb-[60px] max-sm:h-[25vh] max-sm:mb-[50px] max-sm:mt-[50px]"
     >
       <div className="offers-left flex flex-col flex-1 justify-center">
         <h1 className="text-[55px] font-semibold text-[#171717] max-xl:text-4xl max-lg:text-3xl max-md:text-2xl max-sm:text-base">Exclusive</h1>
