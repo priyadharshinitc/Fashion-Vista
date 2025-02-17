@@ -11,11 +11,11 @@ const LoginSignup = () => {
     fontSize: "16px"
   }
   return (
-    <div className='loginsignup w-full h-[93vh] bg-[#FCE3FE] pt-[50px] pb-[50px] mb-[30px] max-xl:pt-[50px]'>
+    <div className='loginsignup w-full h-fit bg-[#FCE3FE] pt-[50px] pb-[50px] mb-[30px] max-xl:pt-[50px]'>
       <div className="loginsignup-container w-[580px] h-fit bg-white py-5 px-12 m-auto max-xl:w-auto max-xl:max-w-[500px] max-xl:h-[500px] max-sm:w-[80%] max-sm:p-4">
         <h1 className="text-3xl font-semibold text-[#171717] my-1 mx-0 max-xl:my-2 max-xl:mx-auto max-md:text-2xl">Sign Up</h1>
         <div className="loginsignup-fields flex flex-col gap-7">
-          <input type="text" placeholder='Your Name' style={loginsignupFieldsInputStyles} className='max-xl:gap-5 max-xl:mt-5' />
+          <input type="text" placeholder='Your Name' style={loginsignupFieldsInputStyles} className='max-xl:gap-5 mt-5' />
           <input type="email" placeholder='Email Address' style={loginsignupFieldsInputStyles} />
           <input type="password" placeholder='Password' style={loginsignupFieldsInputStyles} />
         </div>
