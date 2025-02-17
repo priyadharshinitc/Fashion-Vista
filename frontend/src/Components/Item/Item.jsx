@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Item = (props) => {
   return (
-    <div className='item w-[350px] hover:scale-[1.01] hover:transition duration-[0.6s] max-xl:w-[220px] max-xl:text-base max-lg:w-[170px] max-md:w-[120px] max-sm:w-[160px]'>
+    <div className={`item w-[350px] hover:scale-[1.01] hover:transition duration-[0.6s] max-xl:w-[220px] max-xl:text-base max-lg:w-[170px] max-md:w-[120px] max-sm:w-[160px] ${props.className}`}>
         <Link to={`/product/${props.id}`}>
           <img className='w-[300px] max-xl:w-[220px] max-lg:w-[170px] max-md:w-[120px] max-sm:w-[160px]' src={props.image} alt="Product Image" onClick={window.scrollTo(0, 0)} />
         </Link>
