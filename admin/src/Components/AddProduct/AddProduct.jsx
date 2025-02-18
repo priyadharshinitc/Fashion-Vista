@@ -1,26 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import uploadImage from '../../assets/image-upload.png'
 
 const AddProduct = () => {
+  const [image, setImage] = useState(false)
+  const [productDetails, setProductDetails] = useState({
+    name: "",
+    image: "",
+    category: "women",
+    new_price: "",
+    old_price: ""
+  })
+
+  const imageHandler = (e) => {
+    setImage(e.target.files[0])
+  }
+
+  const changeHandler = (e) => {
+    setProductDetails({...productDetails, [e.target.name]: e.target.value})
+  }
+
+  const Add_Product = async () => {
+    console.log(productDetails)
+  }
+
   return (
     <div className='add-product box-border w-full max-w-[800px] py-8 px-12 my-5 mx-8 rounded-md bg-neutral-100 max-md:w-auto max-md:p-8 max-md:m-5'>
       <div className="addproduct-itemfield w-full text-[#7B7B7B] text-base">
         <p>Product Title</p>
-        <input type="text" name="name" placeholder='Enter Product Title' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5" />
+        <input type="text" name="name" placeholder='Enter Product Title' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5" value={productDetails.name} onChange={changeHandler} />
       </div>
       <div className="addproduct-price flex gap-10 mt-5">
         <div className="addproduct-itemfield w-full text-[#7B7B7B] text-base">
           <p>Price</p>
-          <input type="text" name="old_price" placeholder='Enter Old Price' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5 max-md:p-1 max-md:text-center" />
+          <input type="text" name="old_price" placeholder='Enter Old Price' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5 max-md:p-1 max-md:text-center" value={productDetails.old_price} onChange={changeHandler} />
         </div>
         <div className="addproduct-itemfield w-full text-[#7B7B7B] text-base ">
           <p>Offer Price</p>
-          <input type="text" name="new_price" placeholder='Enter New Price' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5 max-md:p-1 max-md:text-center" />
+          <input type="text" name="new_price" placeholder='Enter New Price' className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5 max-md:p-1 max-md:text-center" value={productDetails.new_price} onChange={changeHandler} />
         </div>
       </div>
       <div className="addproduct-itemfield w-full text-[#7B7B7B] text-base mt-5">
         <p>Product Category</p>
-        <select name="category" className="addproduct-selector p-2 w-[100px] h-[50px] text-base text-[#7B7B7B] border border-[#7B7B7B8D] rounded-sm mt-2">
+        <select name="category" className="addproduct-selector p-2 w-[100px] h-[50px] text-base text-[#7B7B7B] border border-[#7B7B7B8D] rounded-sm mt-2" value={productDetails.category} onChange={changeHandler}>
           <option value="women">Women</option>
           <option value="men">Men</option>
           <option value="kid">Kid</option>
@@ -28,11 +49,11 @@ const AddProduct = () => {
       </div>
       <div className="addproduct-itemfield w-full text-[#7B7B7B] text-base mt-5">
         <label htmlFor="file-input">
-          <img src={uploadImage} alt="Upload Area Icon" className='addproduct-thumbnail-img w-[120px] h-[120px] rounded-md' />
+          <img src={image? URL.createObjectURL(image) : uploadImage} alt="Upload Area Icon" className='addproduct-thumbnail-img w-[120px] h-[120px] rounded-md' />
         </label>
-        <input type="file" name="image" id="file-input" hidden className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5" />
+        <input type="file" name="image" id="file-input" hidden className="box-border w-full h-[50px] rounded-sm pl-4 border border-[#C3C3C3] outline-none text-[#7B7B7B] text-base mt-5" onChange={imageHandler} />
       </div>
-      <button className='addproduct-btn mt-5 w-[160px] h-[50px] rounded-sm bg-[#6079FF] text-white border-none cursor-pointer text-base font-medium'>ADD</button>
+      <button className='addproduct-btn mt-5 w-[160px] h-[50px] rounded-sm bg-[#6079FF] text-white border-none cursor-pointer text-base font-medium' onClick={() => {Add_Product()}}>ADD</button>
     </div>
   )
 }
