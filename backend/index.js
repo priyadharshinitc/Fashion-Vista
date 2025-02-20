@@ -236,6 +236,7 @@ const fetchUser = async (req, res, next) => {
     } else {
         try {
             const data = jwt.verify(token, "secret_ecom")
+            console.log("Decoded Token Data:", data); // Debugging log
             req.user = data.user
             next()
         } catch (error) {
@@ -263,6 +264,14 @@ app.post("/removefromcart", fetchUser, async (req, res) => {
     await Users.findOneAndUpdate({_id: req.user.id}, {cartData: userData.cartData})
     res.json({success: true, message: "Removed"})
     }
+})
+
+// Creating End Point to get Cart Data
+app.post("/getcart", fetchUser, async (req, res) => {
+    console.log("Get Cart")
+    let userData = await Users.findOne({_id: req.user.id})
+    // console.log(userData)
+    res.json(userData.cartData)
 })
 
 app.listen(port, (error) => {
