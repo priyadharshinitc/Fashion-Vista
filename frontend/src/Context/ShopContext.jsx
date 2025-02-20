@@ -25,23 +25,50 @@ const ShopContextProvider = (props) => {
     }, [])
 
     const addToCart = (itemId) => {
-        // setCartItems((prev) => ({...prev, [itemId]: (prev[itemId] || 0) + 1}))
+        setCartItems((prev) => ({...prev, [itemId]: (prev[itemId] || 0) + 1}))
         // console.log(cartItems)
+        if(localStorage.getItem("auth-token")) {
+            fetch("http://localhost:5000/addtocart", {
+                method: "POST",
+                headers: {
+                    Accept: "application/form-data",
+                    "auth-token": `${localStorage.getItem("auth-token")}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"itemId": itemId})
+            })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+        }
         
-        setCartItems((prev) => {
-            const updatedCart = { ...prev, [itemId]: (prev[itemId] || 0) + 1 };
-            console.log("Updated Cart: ", updatedCart); // Logs correctly
-            return updatedCart;
-        });
+        // setCartItems((prev) => {
+        //     const updatedCart = { ...prev, [itemId]: (prev[itemId] || 0) + 1 };
+        //     console.log("Updated Cart: ", updatedCart);
+        //     return updatedCart;
+        // });
     }
 
     const removeFromCart = (itemId) => {
-        // setCartItems((prev) => ({...prev, [itemId]: prev[itemId] - 1}))
-        setCartItems((prev) => {
-            const updatedCart = {...prev, [itemId]: (prev[itemId] || 0) - 1};
-            console.log("Updated Cart: ", updatedCart);
-            return updatedCart;
-        });
+        setCartItems((prev) => ({...prev, [itemId]: prev[itemId] - 1}))
+        // setCartItems((prev) => {
+        //     const updatedCart = {...prev, [itemId]: (prev[itemId] || 0) - 1};
+        //     console.log("Updated Cart: ", updatedCart);
+        //     return updatedCart;
+        // });
+
+        if(localStorage.getItem("auth-token")) {
+            fetch("http://localhost:5000/removefromcart", {
+                method: "POST",
+                headers: {
+                    Accept: "application/form-data",
+                    "auth-token": `${localStorage.getItem("auth-token")}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"itemId": itemId})
+            })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+        }
     }
 
     const getTotalCartAmount = () => {

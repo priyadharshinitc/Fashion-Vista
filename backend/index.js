@@ -15,7 +15,16 @@ app.use(cors())
 
 // Database Connection with MongoDB
 // mongodb+srv://priyadharshinihp:<db_password>@cluster0.fxrnh.mongodb.net/
-mongoose.connect("mongodb+srv://priyadharshinihp:68781@cluster0.fxrnh.mongodb.net/e-commerce")
+// mongoose.connect("mongodb+srv://priyadharshinihp:68781@cluster0.fxrnh.mongodb.net/e-commerce")
+
+mongoose.connect("mongodb+srv://priyadharshinihp:68781@cluster0.fxrnh.mongodb.net/e-commerce", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB successfully!");
+}).catch((err) => {
+    console.error("MongoDB connection error:", err);
+});
 
 // API Creation
 app.get("/", (req, res) => {
@@ -137,8 +146,9 @@ const Users = mongoose.model("Users", {
     password: {
         type: String
     },
-    cartObject: {
-        type: Object
+    cartData: {
+        type: Object,
+        default: {}
     },
     date: {
         type: Date,
@@ -162,11 +172,12 @@ app.post("/signup", async (req, res) => {
     }
 
     const user = new Users({
-        name: req.body.user,
+        name: req.body.username,
         email: req.body.email,
         password: req.body.password,
         cartData: cart
     })
+    console.log("Cart Data before saving:", user.cartData)
 
     await user.save()
 
@@ -215,6 +226,43 @@ app.get("/popularinwomen", async (req, res) => {
     let popular_in_women = products.slice(0, 4)
     console.log("Products for Popular in Women fetched")
     res.send(popular_in_women)
+})
+
+// Creating Middleware to fetch User
+const fetchUser = async (req, res, next) => {
+    const token = req.header("auth-token")
+    if(!token) {
+        res.status(401).send({error: "Please authenticate using Valid token"})
+    } else {
+        try {
+            const data = jwt.verify(token, "secret_ecom")
+            req.user = data.user
+            next()
+        } catch (error) {
+            res.status(401).send({error: "Please Authenticate using a Valid token"})
+        }
+    }
+}
+
+// Creating End Point for adding products in Cart Data
+app.post("/addtocart", fetchUser, async (req, res) => {
+    console.log("Added", req.body.itemId)
+    let userData = await Users.findOne({_id: req.user.id})
+    userData.cartData[req.body.itemId] += 1
+    await Users.findOneAndUpdate({_id: req.user.id}, {cartData: userData.cartData})
+    // res.send("Added")
+    res.json({success: true, message: "Added"})
+})
+
+// Creating End Point to remove product from Cart Data
+app.post("/removefromcart", fetchUser, async (req, res) => {
+    console.log("Removed", req.body.itemId)
+    let userData = await Users.findOne({_id: req.user.id})
+    if(userData.cartData[req.body.itemId] > 0) {
+        userData.cartData[req.body.itemId] -= 1
+    await Users.findOneAndUpdate({_id: req.user.id}, {cartData: userData.cartData})
+    res.json({success: true, message: "Removed"})
+    }
 })
 
 app.listen(port, (error) => {
