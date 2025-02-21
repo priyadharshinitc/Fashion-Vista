@@ -56,7 +56,7 @@ The project is deployed on Render for easy access.
 
 ## Getting Started
 
-* **Installation**
+**Installation**
 
 1. Clone the repository:
 `git clone https://github.com/yourusername/Fashion-Vista.git`
