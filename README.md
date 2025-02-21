@@ -34,8 +34,6 @@ Fashion Vista is a full-stack e-commerce website where users can explore and sho
 
 * Database: MongoDB Atlas
   
-* Deployment: Render
-
 ## Purpose
 
 * For Users: Browse and shop for fashion products.
