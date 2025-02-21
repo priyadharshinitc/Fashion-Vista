@@ -6,7 +6,8 @@ const NewCollections = () => {
   const [new_collection, setNew_collection] = useState([])
 
   useEffect(() => {
-    fetch("https://fashion-vista-i2q8.onrender.com/newcollections")
+    // fetch("https://fashion-vista-i2q8.onrender.com/newcollections")
+    fetch("http://localhost:5000/newcollections")
     .then((response) => response.json())
     .then((data) => setNew_collection(data))
   }, [])

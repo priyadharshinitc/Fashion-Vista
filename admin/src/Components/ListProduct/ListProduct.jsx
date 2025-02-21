@@ -5,7 +5,8 @@ const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([])
 
   const fetchInfo = async () => {
-    let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
+    // let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
+    let response = await fetch("http://localhost:5000/allproducts")
     let responseData = await response.json()
     setAllProducts(responseData)
   }
@@ -15,7 +16,8 @@ const ListProduct = () => {
   }, [])
 
   const remove_product = async(id) => {
-    await fetch("https://fashion-vista-i2q8.onrender.com/removeproduct", {
+    // await fetch("https://fashion-vista-i2q8.onrender.com/removeproduct", {
+    await fetch("http://localhost:5000/removeproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",
