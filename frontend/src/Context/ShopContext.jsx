@@ -18,11 +18,15 @@ const ShopContextProvider = (props) => {
     // 0: 0
     // 1: 0
 
-    useEffect(() => {
+    useEffect(async () => {
         // fetch("http://localhost:5000/allproducts")
         fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
         .then((response) => response.json())
         .then((data) => setAll_Product(data))
+
+        // let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
+        // let nextResponse = await response.json()
+        // setAll_Product(nextResponse)
 
         if(localStorage.getItem("auth-token")) {
             // fetch("http://localhost:5000/getcart", {

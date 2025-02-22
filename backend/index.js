@@ -15,7 +15,15 @@ const port = process.env.PORT || 5000;
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+
+// Allow requests from your frontend and admin
+const corsOptions = {
+    origin: ["https://fashion-vista-admin.onrender.com", "https://fashion-vista-frontend.onrender.com"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  }
+
+app.use(cors(corsOptions))
 
 // Database Connection with MongoDB
 const mongoURI = process.env.MONGO_URI;
