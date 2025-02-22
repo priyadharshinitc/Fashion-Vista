@@ -19,14 +19,14 @@ const ShopContextProvider = (props) => {
     // 1: 0
 
     useEffect(() => {
-        // fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
-        fetch("http://localhost:5000/allproducts")
+        // fetch("http://localhost:5000/allproducts")
+        fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
         .then((response) => response.json())
         .then((data) => setAll_Product(data))
 
         if(localStorage.getItem("auth-token")) {
-            // fetch("https://fashion-vista-i2q8.onrender.com/getcart", {
-            fetch("http://localhost:5000/getcart", {
+            // fetch("http://localhost:5000/getcart", {
+            fetch("https://fashion-vista-i2q8.onrender.com/getcart", {
                 method: "POST",
                 headers: {
                     Accept: "application/form-data",
@@ -44,8 +44,8 @@ const ShopContextProvider = (props) => {
         setCartItems((prev) => ({...prev, [itemId]: (prev[itemId] || 0) + 1}))
         // console.log(cartItems)
         if(localStorage.getItem("auth-token")) {
-            // fetch("https://fashion-vista-i2q8.onrender.com/addtocart", {
-            fetch("http://localhost:5000/addtocart", {
+            // fetch("http://localhost:5000/addtocart", {
+            fetch("https://fashion-vista-i2q8.onrender.com/addtocart", {
                 method: "POST",
                 headers: {
                     Accept: "application/form-data",
@@ -74,8 +74,8 @@ const ShopContextProvider = (props) => {
         // });
 
         if(localStorage.getItem("auth-token")) {
-            // fetch("https://fashion-vista-i2q8.onrender.com/removefromcart", {
-            fetch("http://localhost:5000/removefromcart", {
+            // fetch("http://localhost:5000/removefromcart", {
+            fetch("https://fashion-vista-i2q8.onrender.com/removefromcart", {
                 method: "POST",
                 headers: {
                     Accept: "application/form-data",

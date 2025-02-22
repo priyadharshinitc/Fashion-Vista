@@ -39,8 +39,8 @@ const AddProduct = () => {
     //   responseData = data
     // })
 
-    // let response = await fetch("https://fashion-vista-i2q8.onrender.com/upload", {
-    let response = await fetch("http://localhost:5000/upload", {
+    // let response = await fetch("http://localhost:5000/upload", {
+      let response = await fetch("https://fashion-vista-i2q8.onrender.com/upload", {
       method: "POST",
       headers: {
         Accept: "application/json"
@@ -54,8 +54,8 @@ const AddProduct = () => {
       product.image = responseData.image_url
       console.log(product)
 
-      // let nextResponse = await fetch("https://fashion-vista-i2q8.onrender.com/addproduct", {
-      let nextResponse = await fetch("http://localhost:5000/addproduct", {
+      // let nextResponse = await fetch("http://localhost:5000/addproduct", {
+      let nextResponse = await fetch("https://fashion-vista-i2q8.onrender.com/addproduct", {
         method: "POST",
         headers: {
           Accept: "application/json",
