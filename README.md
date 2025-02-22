@@ -33,6 +33,8 @@ Fashion Vista is a full-stack e-commerce website where users can explore and sho
 * Backend: Node.js, Express.js
 
 * Database: MongoDB Atlas
+
+* Deployment: Render
   
 ## Purpose
 
@@ -43,6 +45,7 @@ Fashion Vista is a full-stack e-commerce website where users can explore and sho
 ## Deployment
 
 The project is deployed on Render for easy access.
+You can access Fashion Vista website by visiting [https://fashion-vista-frontend.onrender.com]. Feel free to explore the content and get in touch!
 
 ## Future Enhancements
 
