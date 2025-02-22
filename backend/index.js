@@ -1,26 +1,25 @@
+require("dotenv").config();
 const express = require("express")
 const mongoose = require("mongoose")
 const jwt = require("jsonwebtoken")
 const multer = require("multer")
+const { v2: cloudinary } = require("cloudinary");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cors = require("cors")
 
 // path is a module from express
 const path = require("path")
 
-const port = 5000
+// const port = 5000
+const port = process.env.PORT || 5000;
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
 // Database Connection with MongoDB
-// mongodb+srv://priyadharshinihp:<db_password>@cluster0.fxrnh.mongodb.net/
-// mongoose.connect("mongodb+srv://priyadharshinihp:68781@cluster0.fxrnh.mongodb.net/e-commerce")
-
-mongoose.connect("mongodb+srv://priyadharshinihp:68781@cluster0.fxrnh.mongodb.net/e-commerce", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI).then(() => {
     console.log("Connected to MongoDB successfully!");
 }).catch((err) => {
     console.error("MongoDB connection error:", err);
@@ -32,24 +31,54 @@ app.get("/", (req, res) => {
 })
 
 // Image Storage Engine
-const storage = multer.diskStorage({
-    destination: "./upload/images",
-    filename: (req, file, cb) => {
-        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: "./upload/images",
+//     filename: (req, file, cb) => {
+//         return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+//     }
+// })
 
-const upload = multer({storage:storage})
+// const upload = multer({storage:storage})
 
 // Creating upload endpoint for images
-app.use("/images", express.static("upload/images"))
-app.post("/upload", upload.single("product"), (req, res) => {
+// app.use("/images", express.static("upload/images"))
+// app.post("/upload", upload.single("product"), (req, res) => {
+//     res.json({
+//         success: 1,
+//         image_url: `http://localhost:${port}/images/${req.file.filename}`
+//         // image_url: `https://fashion-vista-i2q8.onrender.com/images/${req.file.filename}`
+//     })
+// })
+
+// Cloudinary Configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+  
+  // Multer Storage Configuration with Cloudinary
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: "product-images",
+      format: async (req, file) => "png",
+      public_id: (req, file) => file.originalname.split(".")[0],
+    },
+  });
+  
+  const upload = multer({ storage });
+  
+  // Upload Image to Cloudinary
+  app.post("/upload", upload.single("product"), (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ success: 0, message: "No file uploaded" });
+    }
     res.json({
-        success: 1,
-        image_url: `http://localhost:${port}/images/${req.file.filename}`
-        // image_url: `https://fashion-vista-i2q8.onrender.com/images/${req.file.filename}`
-    })
-})
+      success: 1,
+      image_url: req.file.path, // Cloudinary URL
+    });
+  });
 
 // Schema for Creating Products
 const Product = mongoose.model("Product", {
