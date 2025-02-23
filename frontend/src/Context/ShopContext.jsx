@@ -18,31 +18,37 @@ const ShopContextProvider = (props) => {
     // 0: 0
     // 1: 0
 
-    useEffect(async () => {
-        // fetch("http://localhost:5000/allproducts")
-        fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
-        .then((response) => response.json())
-        .then((data) => setAll_Product(data))
-
-        // let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts")
-        // let nextResponse = await response.json()
-        // setAll_Product(nextResponse)
-
-        if(localStorage.getItem("auth-token")) {
-            // fetch("http://localhost:5000/getcart", {
-            fetch("https://fashion-vista-i2q8.onrender.com/getcart", {
-                method: "POST",
-                headers: {
-                    Accept: "application/form-data",
-                    "auth-token": `${localStorage.getItem("auth-token")}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({})
-            })
-            .then((response) => response.json())
-            .then((data) => setCartItems(data))
-        }
-    }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch all products
+                let response = await fetch("http://localhost:5000/allproducts")
+                // let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts");
+                let data = await response.json();
+                setAll_Product(data);
+    
+                // Fetch cart items if auth-token exists
+                if (localStorage.getItem("auth-token")) {
+                    // let cartResponse = await fetch("http://localhost:5000/getcart", {
+                    let cartResponse = await fetch("https://fashion-vista-i2q8.onrender.com/getcart", {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/form-data",
+                            "auth-token": `${localStorage.getItem("auth-token")}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({})
+                    });
+                    let cartData = await cartResponse.json();
+                    setCartItems(cartData);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+    
+        fetchData();
+    }, []);
 
     const addToCart = (itemId) => {
         setCartItems((prev) => ({...prev, [itemId]: (prev[itemId] || 0) + 1}))
