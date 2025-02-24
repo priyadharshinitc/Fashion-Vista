@@ -22,8 +22,8 @@ const ShopContextProvider = (props) => {
         const fetchData = async () => {
             try {
                 // Fetch all products
-                let response = await fetch("http://localhost:5000/allproducts")
-                // let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts");
+                // let response = await fetch("http://localhost:5000/allproducts")
+                let response = await fetch("https://fashion-vista-i2q8.onrender.com/allproducts");
                 let data = await response.json();
                 setAll_Product(data);
     
