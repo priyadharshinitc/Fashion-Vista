@@ -33,6 +33,8 @@ Fashion Vista is a full-stack e-commerce website where users can explore and sho
 * Backend: Node.js, Express.js
 
 * Database: MongoDB Atlas
+
+* Deployment: Render
   
 ## Purpose
 
@@ -43,6 +45,7 @@ Fashion Vista is a full-stack e-commerce website where users can explore and sho
 ## Deployment
 
 The project is deployed on Render for easy access.
+You can access Fashion Vista website by visiting [https://fashion-vista-frontend.onrender.com]. Feel free to explore the content and get in touch!
 
 ## Future Enhancements
 
@@ -57,13 +60,19 @@ The project is deployed on Render for easy access.
 **Installation**
 
 1. Clone the repository:
-`git clone https://github.com/yourusername/Fashion-Vista.git`
+`git clone https://github.com/priyadharshinitc/Fashion-Vista.git`
 
 2. Install dependencies for the frontend and backend:
 `cd frontend`
 `npm install`
 `cd backend`
-`npm install`
+`npm init`
+`npm install express`
+`npm install jsonwebtoken`
+`npm install mongoose`
+`npm install multer`
+`npm install cors`
+`npm install multer-storage-cloudinary cloudinary dotenv`
 `cd admin`
 `npm install`
 
