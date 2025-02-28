@@ -176,14 +176,17 @@ app.get("/allproducts", async (req, res) => {
 // Creating Schema for User model
 const Users = mongoose.model("Users", {
     name: {
-        type: String
+        type: String,
+        required: true
     },
     email: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     cartData: {
         type: Object,
