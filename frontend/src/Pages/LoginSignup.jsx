@@ -24,49 +24,57 @@ const LoginSignup = () => {
   }
 
   const signup = async () => {
-    console.log("Sign Up Function Executed", formData)
+    if(formData.username !== "" && formData.email !== "" && formData.password !== "") {
+      console.log("Sign Up Function Executed", formData)
 
-    // let response = await fetch("http://localhost:5000/signup", {
-    let response = await fetch("https://fashion-vista-i2q8.onrender.com/signup", {
-      method: "POST",
-      headers: {
-        Accept: "application/form-data",
-        'Content-Type': "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
+      // let response = await fetch("http://localhost:5000/signup", {
+      let response = await fetch("https://fashion-vista-i2q8.onrender.com/signup", {
+        method: "POST",
+        headers: {
+          Accept: "application/form-data",
+          'Content-Type': "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
 
-    let responseData = await response.json()
-    
-    if(responseData.success) {
-      localStorage.setItem("auth-token", responseData.token)
-      window.location.replace("/")
+      let responseData = await response.json()
+      
+      if(responseData.success) {
+        localStorage.setItem("auth-token", responseData.token)
+        window.location.replace("/")
+      } else {
+        alert(responseData.error)
+      }
     } else {
-      alert(responseData.error)
-    }
+      window.alert("Please enter data in all required fields.");
+    }    
   }
 
   const login = async () => {
-    console.log("Login Function Executed", formData)
+    if(formData.email !== "" && formData.password !== "") {
+      console.log("Login Function Executed", formData)
 
-    // let response = await fetch("http://localhost:5000/login", {
-    let response = await fetch("https://fashion-vista-i2q8.onrender.com/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/form-data",
-        'Content-Type': "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
+      // let response = await fetch("http://localhost:5000/login", {
+      let response = await fetch("https://fashion-vista-i2q8.onrender.com/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/form-data",
+          'Content-Type': "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
 
-    let responseData = await response.json()
-    
-    if(responseData.success) {
-      localStorage.setItem("auth-token", responseData.token)
-      window.location.replace("/")
+      let responseData = await response.json()
+      
+      if(responseData.success) {
+        localStorage.setItem("auth-token", responseData.token)
+        window.location.replace("/")
+      } else {
+        alert(responseData.error)
+      }
     } else {
-      alert(responseData.error)
-    }
+      window.alert("Please enter data in all required fields.");
+    }    
   }
 
   return (
