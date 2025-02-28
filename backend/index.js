@@ -169,7 +169,8 @@ app.post("/removeproduct", async (req, res) => {
 app.get("/allproducts", async (req, res) => {
     let products = await Product.find({})
     console.log("All Products Fetched")
-    res.send(products)
+    // res.send(products)
+    res.status(200).json(products)
 })
 
 // Creating Schema for User model
