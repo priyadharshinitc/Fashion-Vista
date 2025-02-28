@@ -74,9 +74,9 @@ const LoginSignup = () => {
       <div className="loginsignup-container w-[580px] h-fit bg-white py-5 px-12 m-auto max-xl:w-auto max-xl:max-w-[500px] max-xl:h-[500px] max-sm:w-[80%] max-sm:p-4">
         <h1 className="text-3xl font-semibold text-[#171717] my-1 mx-0 max-xl:my-2 max-xl:mx-auto max-md:text-2xl">{state}</h1>
         <div className="loginsignup-fields flex flex-col gap-7 max-[320px]:gap-4">
-          {state === "Sign Up" && <input type="text" placeholder='Your Name' style={loginsignupFieldsInputStyles} className='max-xl:gap-5' name="username" value={formData.username} onChange={changeHandler} />}
-          <input type="email" placeholder='Email Address'  style={loginsignupFieldsInputStyles} name="email" value={formData.email} onChange={changeHandler} />
-          <input type="password" placeholder='Password' style={loginsignupFieldsInputStyles} name="password" value={formData.password} onChange={changeHandler} />
+          {state === "Sign Up" && <input type="text" placeholder='Your Name' style={loginsignupFieldsInputStyles} className='max-xl:gap-5' name="username" value={formData.username} onChange={changeHandler} required />}
+          <input type="email" placeholder='Email Address'  style={loginsignupFieldsInputStyles} name="email" value={formData.email} onChange={changeHandler} required />
+          <input type="password" placeholder='Password' style={loginsignupFieldsInputStyles} name="password" value={formData.password} onChange={changeHandler} required />
         </div>
         <button className='w-[100%] h-12 text-white bg-[#FF4141] border-none text-xl font-medium cursor-pointer mt-[30px] max-md:text-base' onClick={() => {(state === "Sign Up") ? signup() : login()}}>Continue</button>
         {state === "Sign Up" && <p className='loginsignup-login text-[#5C5C5C] text-xl font-medium mt-5 max-xl:text-base'>Already have an account? <span className='text-[#FF4141] font-semibold cursor-pointer' onClick={() => setState("Login")}>Login</span></p>}
